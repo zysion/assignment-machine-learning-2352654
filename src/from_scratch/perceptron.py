@@ -12,6 +12,10 @@ import numpy as np
 
 
 def perceptron_update(w, b, x, y, lr):
+    if y * (w @ x + b) <= 0:
+        w = w + lr * y * x
+        b = b + lr * y
+    return w, b
     raise NotImplementedError
 
 
@@ -20,7 +24,16 @@ class Perceptron:
         self.lr, self.max_epochs, self.seed = lr, max_epochs, seed
 
     def fit(self, X, y):
+        w = np.zeros(X.shape[1])
+        b = 0.0
+        for i in range(self.max_epochs):
+            for xi, yi in zip(X, y):
+                w, b = perceptron_update(w, b, xi, yi, self.lr)   
+        self.w_, self.b_ = w, b
+        return self
         raise NotImplementedError
 
     def predict(self, X):
+        z = X @ self.w_ + self.b_
+        return np.where(z > 0, 1, -1)
         raise NotImplementedError
