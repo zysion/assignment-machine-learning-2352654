@@ -32,9 +32,13 @@ def forward(params, X):
     cache = {'A0': A}
     n_layers = len(params) // 2  # have w and b
     for i in range(1, n_layers):
-        A = activation(A @ params[f'W{i}'] + params[f'b{i}'])
+        Z = A @ params[f'W{i}'] + params[f'b{i}']
+        A = activation(Z)
+        cache[f'Z{i}'] = Z
         cache[f'A{i}'] = A
-    A = output_activation(A @ params[f'W{n_layers}'] + params[f'b{n_layers}'])
+    Z = A @ params[f'W{n_layers}'] + params[f'b{n_layers}']
+    A = output_activation(Z)
+    cache[f'Z{n_layers}'] = Z
     cache[f'A{n_layers}'] = A
     return A, cache
     raise NotImplementedError
@@ -57,6 +61,8 @@ def backward(params, cache, Y):
         grads[f'b{i}'] = np.mean(dZ, axis=0)
         if i > 1:
             dA_prev = dZ @ params[f'W{i}'].T
-            dZ = dA_prev * (A_prev > 0)  # derivative of ReLU
+            Z_prev = cache[f'Z{i - 1}']
+            relu_grad = np.where(Z_prev > 0, 1.0, np.where(Z_prev == 0, 0.5, 0.0))
+            dZ = dA_prev * relu_grad
     return grads
     raise NotImplementedError
