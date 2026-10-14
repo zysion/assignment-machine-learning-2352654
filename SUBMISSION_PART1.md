@@ -1,10 +1,11 @@
 # SUBMISSION PART 1
-
 - Tag: part1-final
-- Commit (full hash):
-- Report: report/part1_summary.pdf
-- Two-A4 exam sheet: exam/a4-notes-part1-midterm.pdf
-- Reproduce: exact commands, environment file, seeds
-- Release-day baseline and catch-up: exercises/release-baseline-w01-w04.pdf (or -w02.pdf), docs/pre-release/PRE_RELEASE_CATCHUP.md
-- Frozen protocol: protocol.yaml; weekly posts W05-W07 and drills linked from PROGRESS.md
-- Known limitations and errata (corrections found after 14 Oct go to Part II, never into Part I history):
+- Commit (full hash): 
+- Report: [Report](report/part1_summary.pdf)
+- Two-A4 exam sheet: [A4 cheet sheet](exam/a4-notes-part1-midterm.pdf)
+- Reproduce: 
+  * Environment: python -m venv venv; .\venv\Scripts\pip install -r requirements.txt
+  * Verification check: python tools/check.py --checkpoint part1-final
+  * Random seeds: [31, 153, 2021]
+- Release-day baseline and catch-up: [drill release](exercises/release-baseline-w01-w04.pdf), [post release](docs/pre-release/PRE_RELEASE_CATCHUP.md)
+- Frozen protocol: [standard data](protocol.yaml); weekly posts W05-W07 and drills linked from PROGRESS.md
